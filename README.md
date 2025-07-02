@@ -39,11 +39,13 @@
 
 ## 平台技术架构
 
-![平台技术架构](doc/img/biz_platform.jpg)  
+![biz_platform](https://github.com/user-attachments/assets/e8935be9-45a7-4383-8e48-a9e7d689ec91)
+
 
 ## 系统应用架构
 
-![系统应用架构](doc/img/biz_webapp_framework.png)
+![image](https://github.com/user-attachments/assets/e00b704a-bfc2-4b3d-86fc-a2b063d20da0)
+
 
 
 ##平台目录结构
@@ -119,11 +121,13 @@ https://github.com/CarpenterGISer/springcloud-python
 
 1.在Mqconfig中指定通道
 
-![img_1.png](img_1.png)
+![image](https://github.com/user-attachments/assets/6782608a-9c8c-4969-892d-b1e89ae83a2e)
+
 
 2.调用MqSend的send方法,头部传入解析类名,消息.
 
-![img_2.png](img_2.png)
+![image](https://github.com/user-attachments/assets/7566f071-846f-4fb7-80ee-a2c10e274ea8)
+
 
 3.在需要发送的工程中引入依赖
 
@@ -165,7 +169,8 @@ https://github.com/CarpenterGISer/springcloud-python
 二.消息消费者,消息系统aeotrade-provider-message
 
 **2.1消息接收系统类图(消费者)**
-![img.png](img.png)
+![image](https://github.com/user-attachments/assets/d1504106-80a1-443e-8a16-aa2ada414095)
+
 
 添加新的消息消费时 , 定义类名,继承AbstractComponent抽象类重写 抽象方法
 
