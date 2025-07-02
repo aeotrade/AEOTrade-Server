@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+    <property name="log.path" value="logs"/>
+    <property name="log.colorPattern"
+              value="%magenta(%d{yyyy-MM-dd HH:mm:ss.SSS}) %highlight(%-5level)[%yellow(%thread)] %green(%logger{28}) : %msg%n"/>
+    <property name="log.pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{28} : %msg%n"/>
+
+    <!--输出到控制台-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${log.colorPattern}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/${springAppName}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/%d{yyyy-MM,aux}/%d{yyyy-MM-dd,aux}/${springAppName}.%d{yyyy-MM-dd-HH}-%i.log</fileNamePattern>
+            <MaxHistory>60</MaxHistory>
+            <maxFileSize>99MB</maxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.spark_project.jetty" level="INFO"/>
+    <logger name="com.ibatis" level="INFO" />
+    <logger name="java.sql" level="INFO" additivity="false"/>
+    <logger name="org.mybatis" level="INFO"/>
+    <logger name="org.apache" level="INFO" additivity="false"/>
+    <logger name="org.springframework" level="INFO" additivity="false"/>
+
+    <root level="info">
+        <appender-ref ref="file_info"/>
+        <appender-ref ref="console" />
+    </root>
+</configuration>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.aeotrade</groupId>
+        <artifactId>aeotrade</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>aeotrade-server</artifactId>
+    <packaging>pom</packaging>
+    <name>aeotrade-server服务提供模块</name>
+    <description>以让国际贸易更便利为使命</description>
+
+    <!-- 服务层共享的依赖（服务发现/配置中心） -->
+    <dependencies>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.jersey</groupId>
+                    <artifactId>jersey-client</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>1.19.4</version>
+        </dependency>
+    </dependencies>
+
+    <!-- 业务服务模块 -->
+    <modules>
+        <module>aeotrade-server-message</module>
+        <module>aeotrade-server-gateway</module>
+        <module>aeotrade-server-chain</module>
+        <module>aeotrade-server-admin</module>
+        <module>aeotrade-server-oauth</module>
+        <module>aeotrade-server-mamber</module>
+    </modules>
+</project>

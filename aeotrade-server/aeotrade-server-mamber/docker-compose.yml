@@ -1,0 +1,15 @@
+services:
+  aeotrade-provider-mamber:
+    #image: hub.aeotrade.com/aeotrade/aeotrade-provider-mamber:latest
+    image: hub.aeotrade.com/aeotrade/aeotrade-provider-mamber:v0.9-hml
+    container_name: aeotrade-provider-mamber
+    restart: always
+    environment:
+      - NACOS_URL=192.168.0.36
+      - SPRING_CLOUD_NACOS_DISCOVERY_IP=192.168.1.103
+    ports:
+      - "8092:8092"
+#    volumes:
+#      - mamber-upload:/usr/share/upload
+#    depends_on:
+#      - aeotrade-server-gateway

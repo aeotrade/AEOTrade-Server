@@ -1,0 +1,17 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${nacos.url:localhost}:8848
+        ip: ${nacos.ip:localhost}
+      config:
+        server-addr: ${nacos.url:localhost}:8848
+        group: DEFAULT_GROUP
+        prefix: aeotrade-server-chain
+        file-extension: yaml
+
+jasypt:
+  encryptor:
+    password: pkslow
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator

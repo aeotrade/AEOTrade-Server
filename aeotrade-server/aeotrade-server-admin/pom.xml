@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.aeotrade</groupId>
+        <artifactId>aeotrade-server</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>aeotrade-server-admin</artifactId>
+    <packaging>jar</packaging>
+    <name>慧贸OS用户运营管理系统</name>
+    <description>慧贸OS后台管理系统，负责用户运营与系统配置</description>
+
+    <properties>
+        <start.class>com.aeotrade.provider.admin.AeotradeProviderAdminApplication</start.class>
+        <skipTests>true</skipTests>
+        <docker.host>http://192.168.3.101:2375</docker.host>
+    </properties>
+
+    <dependencies>
+        <!-- Web核心与基础组件 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>3.5.0</version>
+            <exclusions>
+                <!-- 排除Tomcat嵌入组件，后续单独引入指定版本 -->
+                <exclusion>
+                    <artifactId>tomcat-embed-core</artifactId>
+                    <groupId>org.apache.tomcat.embed</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>tomcat-embed-el</artifactId>
+                    <groupId>org.apache.tomcat.embed</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>tomcat-embed-websocket</artifactId>
+                    <groupId>org.apache.tomcat.embed</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- 自定义公共组件 -->
+        <dependency>
+            <groupId>com.aeotrade</groupId>
+            <artifactId>aeotrade-common-base-starter</artifactId>
+            <version>${aeotrade-common-base.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aeotrade</groupId>
+            <artifactId>aeotrade-common-core-starter</artifactId>
+            <version>${aeotrade-common-core.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-boot-starter-actuator</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.aeotrade</groupId>
+            <artifactId>aeotrade-common-logging-starter</artifactId>
+            <version>${aeotrade-common-logging.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+                    <groupId>com.alibaba.cloud</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.aeotrade</groupId>
+            <artifactId>aeotrade-dingding-message</artifactId>
+            <version>${aeotrade-dingding-message.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+                    <groupId>com.alibaba.cloud</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.aeotrade</groupId>
+            <artifactId>aeotrade-common-datasource-starter</artifactId>
+            <version>${aeotrade-common-datasource.version}</version>
+        </dependency>
+
+        <!-- 服务调用与通信 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.aeotrade</groupId>
+            <artifactId>aeotrade-stream-rabbit-starter</artifactId>
+            <version>${aeotrade-stream-rabbit.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+                    <groupId>com.alibaba.cloud</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- 安全与认证 -->
+        <dependency>
+            <groupId>com.aeotrade</groupId>
+            <artifactId>aeotrade-security-starter</artifactId>
+            <version>${aeotrade-security.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+                    <groupId>com.alibaba.cloud</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+            <version>3.3.3</version> <!-- 单独指定版本，适配业务需求 -->
+        </dependency>
+
+        <!-- 工具类与第三方组件 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool-all.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+            <version>${jasypt.version}</version>
+        </dependency>
+
+        <!-- JDK 11 兼容依赖 -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${jaxb-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>${jaxb-impl.version}</version>
+        </dependency>
+
+        <!-- Tomcat 嵌入组件（指定版本） -->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+            <version>9.0.96</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>tomcat-annotations-api</artifactId>
+                    <groupId>org.apache.tomcat</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-el</artifactId>
+            <version>9.0.96</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-websocket</artifactId>
+            <version>9.0.96</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.tomcat.embed</groupId>
+                    <artifactId>tomcat-embed-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <configuration>
+                    <fork>true</fork>
+                    <mainClass>${start.class}</mainClass>
+                    <finalName>${project.artifactId}</finalName>
+                    <outputDirectory>${project.build.directory}/../bin/</outputDirectory>
+                    <addResources>true</addResources>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>中转页</title>
+
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js">
+
+
+
+    </script>
+    <script type="text/javascript">
+        $(function() {
+            console.log("queryServer");
+            queryServer();
+            function queryServer() {
+                console.log("code");
+                let code = getQueryVariable("code");
+                console.log(code);
+              /*  var httpRequest = new XMLHttpRequest();
+                httpRequest.open('POST', 'http://localhost:8080/open/get/accesstoken', true);
+                httpRequest.setRequestHeader("Content-type","application/json");
+                httpRequest.send(JSON.stringify({
+                    "code":code,
+                    "grant_type":"authorization_code"
+                }));*/
+                httpRequest.onreadystatechange = function () {
+                    if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+                        var json = httpRequest.responseText;
+
+                        if(JSON.parse(json).result!=null){
+                            setCookie("userId","yw001","aeotrade.com","/","1")
+                        }
+                        setCookie("userId","yw001","aeotrade.com","/","1")
+                        console.log(json);
+                        document.getElementById('ShowDiv').innerHTML = '获取用户信息成功!' ;
+                        setTimeout(tiaozhuang(),1500);
+                        document.getElementById('ShowDiv').innerHTML = '用户信息为:!'+json ;
+                        setTimeout(tiaozhuang(),1000);
+                        document.getElementById('ShowDiv').innerHTML = '登录中' ;
+                        if(num == 0) { window.location = "https://worktest.aeotrade.com/workbench/firm/index"; }
+                    }
+                };
+            }
+
+            function setCookie(name,value,domain,path,day){
+                console.log(name);
+                var cookie =name+'='+encodeURIComponent(value);  //设置Cookie的名称和Cookie的值，Cookie名称为必填项。
+
+                if(typeof day === 'number'){
+                    cookie+=';max-age='+(day*60*60*24);　　//设置Cookie的过期事件,默认为Session
+
+                }
+                if(!path){cookie+=';path=/'}　　//设置Cookie的路径，默认为 /
+
+                if(domain){cookie+=';domain='+domain}　　//设置Cookie的存储域，默认为当前js执行的网页的域
+                document.cookie= cookie;
+
+            }
+            function tiaozhuang(){
+
+            }
+            function getQueryVariable(variable)
+            {
+                var query = window.location.search.substring(1);
+                var vars = query.split("&");
+                for (var i=0;i<vars.length;i++) {
+                    var pair = vars[i].split("=");
+                    if(pair[0] == variable){return pair[1];}
+                }
+                return(false);
+            }
+        });
+
+    </script>
+
+</head>
+<body>
+<div id="ShowDiv">
+    <h1>获取用户信息....</h1>
+</div>
+</body>
+</html>

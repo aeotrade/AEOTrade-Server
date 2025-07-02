@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="true">
+    <springProperty scope="context"  name="springAppName" source="spring.application.name"/>
+
+    <springProperty scope="context"  name="LOG_DATEFORMAT_PATTERN" source="logging.pattern.dateformat" defaultValue="yyyy-MM-dd HH:mm:ss.SSS" />
+    <springProperty scope="context"  name="LOG_PATH" source="logging.file.path" defaultValue="./logs" />
+    <springProperty scope="context"  name="LOG_FILE" source="logging.file.name" defaultValue="${LOG_PATH}/${springAppName:-aeotrade}.log}"/>
+    <springProperty scope="context"  name="CONSOLE_LOG_PATTERN" source="logging.pattern.console" defaultValue="%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%t]){faint} %clr(%logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+    <springProperty scope="context"  name="FILE_LOG_PATTERN" source="logging.pattern.file" defaultValue="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} %5p [%t] %logger{39} : %m%n%wEx " />
+    <springProperty scope="context"  name="LOGBACK_ROLLINGPOLICY_FILE_NAME_PATTERN" source="logging.pattern.rolling-file-name" defaultValue=".logs/%d{yyyy-MM}/%d{yyyy-MM-dd}/${springAppName:-aeotrade}.%d{yyyy-MM-dd-HH}-%i.log" />
+    <springProperty scope="context"  name="LOGBACK_ROLLINGPOLICY_CLEAN_HISTORY_ON_START" source="logging.file.clean-history-on-start" defaultValue="true"/>
+    <springProperty scope="context"  name="LOGBACK_ROLLINGPOLICY_MAX_FILE_SIZE" source="logging.file.max-size" defaultValue="99MB"/>
+    <springProperty scope="context"  name="LOGBACK_ROLLINGPOLICY_MAX_HISTORY" source="logging.file.max-history" defaultValue="60" />
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <file>${LOG_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <cleanHistoryOnStart>${LOG_FILE_CLEAN_HISTORY_ON_START:-true}</cleanHistoryOnStart>
+            <fileNamePattern>${ROLLING_FILE_NAME_PATTERN:-${LOG_PATH}/%d{yyyy-MM}/%d{yyyy-MM-dd}/${springAppName}.%d{yyyy-MM-dd-HH}-%i.log}</fileNamePattern>
+            <maxFileSize>${LOG_FILE_MAX_SIZE:-99MB}</maxFileSize>
+            <maxHistory>${LOG_FILE_MAX_HISTORY:-60}</maxHistory>
+            <totalSizeCap>${LOG_FILE_TOTAL_SIZE_CAP:-0}</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <springProfile name="!prod">
+        <root level="DEBUG">
+            <appender-ref ref="CONSOLE" />
+        </root>
+        <root level="INFO">
+            <appender-ref ref="FILE" />
+        </root>
+    </springProfile>
+    <springProfile name="prod">
+        <root level="INFO">
+            <appender-ref ref="FILE" />
+        </root>
+    </springProfile>
+
+</configuration>

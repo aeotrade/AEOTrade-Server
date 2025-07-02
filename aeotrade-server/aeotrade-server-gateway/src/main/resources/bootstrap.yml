@@ -1,0 +1,16 @@
+server:
+  port: 8077
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: aeotrade-server-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${nacos.url:localhost}:8848
+      config:
+        server-addr: ${nacos.url:localhost}:8848
+        group: DEFAULT_GROUP
+        prefix: aeotrade-server-gateway
+        file-extension: yaml

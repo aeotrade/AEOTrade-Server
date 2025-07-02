@@ -1,0 +1,21 @@
+server:
+  port: 8092
+spring:
+  application:
+    name: aeotrade-provider-mamber
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${nacos.url:localhost}:8848
+      config:
+        server-addr: ${nacos.url:localhost}:8848
+        group: DEFAULT_GROUP
+        prefix: aeotrade-provider-mamber
+        file-extension: yaml
+  main:
+    allow-bean-definition-overriding: true
+jasypt:
+  encryptor:
+    password: pkslow
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
