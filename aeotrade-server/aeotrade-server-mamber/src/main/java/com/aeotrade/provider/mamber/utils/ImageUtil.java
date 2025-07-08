@@ -23,10 +23,7 @@ import java.util.regex.Pattern;
 public class ImageUtil {
 
 
-    private static String bucketName ;
-    private static String endpoint ;
-    private static  String accessKeySecret ;
-    private static String  accessKeyId ;
+    private static final String bucketName ="aeotrade-launch-advisor";;
 
     /**
      * 单个图片上传
@@ -38,7 +35,7 @@ public class ImageUtil {
             return null;
         }
         /**oss上传*/
-        OSSClient ossClient = new OSSClient(endpoint, OssConstatnt.accessKeyId, OssConstatnt.accessKeySecret);
+        OSSClient ossClient = new OSSClient(OssConstatnt.endpoint, OssConstatnt.accessKeyId, OssConstatnt.accessKeySecret);
         String s = UUID.randomUUID() +".png";
         ossClient.putObject(bucketName,s,inputStream);
         // 设置URL过期时间为10年  3600l* 1000*24*365*10
@@ -59,7 +56,7 @@ public class ImageUtil {
         List<String > list = new ArrayList<>();
         for(int i =0;i<file.length;i++) {
             /**oss上传*/
-            OSSClient ossClient = new OSSClient(endpoint, OssConstatnt.accessKeyId, OssConstatnt.accessKeySecret);
+            OSSClient ossClient = new OSSClient(OssConstatnt.endpoint, OssConstatnt.accessKeyId, OssConstatnt.accessKeySecret);
             String s = UUID.randomUUID() + ".png";
             ossClient.putObject(bucketName, s, file[i].getInputStream());
             // 设置URL过期时间为10年  3600l* 1000*24*365*10
@@ -100,7 +97,7 @@ public class ImageUtil {
             connection = (HttpURLConnection) url.openConnection();
             connection.connect();
             /**oss上传*/
-            OSSClient ossClient = new OSSClient(endpoint, OssConstatnt.accessKeyId, OssConstatnt.accessKeySecret);
+            OSSClient ossClient = new OSSClient(OssConstatnt.endpoint, OssConstatnt.accessKeyId, OssConstatnt.accessKeySecret);
             String s = UUID.randomUUID() +".png";
             ossClient.putObject(bucketName,s,connection.getInputStream());
             // 设置URL过期时间为10年  3600l* 1000*24*365*10
@@ -142,7 +139,7 @@ public class ImageUtil {
             connection.connect();
 
             /**oss上传*/
-            OSSClient ossClient = new OSSClient(endpoint, OssConstatnt.accessKeyId, OssConstatnt.accessKeySecret);
+            OSSClient ossClient = new OSSClient(OssConstatnt.endpoint, OssConstatnt.accessKeyId, OssConstatnt.accessKeySecret);
             String s = UUID.randomUUID() +".png";
             ossClient.putObject(bucketName,s,connection.getInputStream());
             // 设置URL过期时间为10年  3600l* 1000*24*365*10

@@ -17,6 +17,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,7 +48,9 @@ public class UacManageController extends BaseController {
     @Autowired
     private UacMemberStaffService uacMemberStaffService;
 
+    @Value("${wx.login.appid:}")
     private String appid;
+    @Value("${wx.login.appsecret:}")
     private String secret;
 
 
